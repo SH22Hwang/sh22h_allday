@@ -1,30 +1,3 @@
-// {
-//     // See https://go.microsoft.com/fwlink/?LinkId=733558
-//     // for the documentation about the tasks.json format
-//     "version": "2.0.0",
-//     "tasks": [
-//         {
-//             "label": "build",
-//             "type": "shell",
-//             "command": "msbuild",
-//             "args": [
-//                 // Ask msbuild to generate full paths for file names.
-//                 "/property:GenerateFullPaths=true",
-//                 "/t:build",
-//                 // Do not generate summary otherwise it leads to duplicate errors in Problems panel
-//                 "/consoleloggerparameters:NoSummary"
-//             ],
-//             "group": "build",
-//             "presentation": {
-//                 // Reveal the output only if unrecognized errors occur.
-//                 "reveal": "silent"
-//             },
-//             // Use the standard MS compiler pattern to detect errors, warnings and infos
-//             "problemMatcher": "$msCompile"
-//         }
-//     ]
-// }
-
 {
     "version": "2.0.0",
     "runner": "terminal",
@@ -39,6 +12,7 @@
             "command": "g++",
             "args": [
                 "${file}",
+                "-g",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],
@@ -63,6 +37,7 @@
             "command": "gcc",
             "args": [
                 "${file}",
+                "-g",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],
@@ -93,71 +68,26 @@
         },
         {
             "type": "cppbuild",
-            "label": "C/C++: gcc.exe 활성 파일 빌드",
-            "command": "C:\\MinGW\\bin\\gcc.exe",
-            "args": [
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": "build",
-            "detail": "디버거에서 생성된 작업입니다."
-        },
-        {
-            "type": "cppbuild",
             "label": "C/C++: g++.exe 활성 파일 빌드",
-            "command": "C:\\MinGW\\bin\\g++.exe",
+            "command": "C:/Program Files/mingw64/bin/g++.exe",
             "args": [
+                "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "C:/Program Files/mingw64/bin"
             },
             "problemMatcher": [
                 "$gcc"
             ],
-            "group": "build",
-//            "group": {
-//               "kind": "build",
-//                "isDefault": true
-//            },
-            
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "detail": "디버거에서 생성된 작업입니다."
-        },
-        {
-            "type": "cppbuild",
-            "label": "C/C++: gcc.exe 활성 파일 빌드",
-            "command": "C:\\MinGW\\bin\\gcc.exe",
-            "args": [
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": "build",
-              
-            // "group": {
-            //     "kind": "build",
-            //     "isDefault": true
-            // },
-
-            "detail": "컴파일러: C:\\MinGW\\bin\\gcc.exe"
         }
     ]
 }
