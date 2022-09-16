@@ -32,7 +32,7 @@ void init()
 void push(char c)
 {
     node *newnode = (node *)malloc(sizeof(node));
-    newnode->data = c; // 순환 큐에 1부터 N까지 넣음
+    newnode->data = c;
     newnode->prev = cur;
     newnode->next = cur->next;
 
