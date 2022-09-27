@@ -1,7 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 int A, B, time;
 
 int main()
@@ -9,13 +6,22 @@ int main()
     scanf("%d %d", &A, &B);
     scanf(" %d", &time);
 
-    int share, remainder;
+    int hour = A, minute;
 
-    share = time / 60;
-    remainder = time % 60;
+    if ((B + time) < 60)
+    {
+        minute = B + time;
+    }
+    else
+    {
+        hour += (B + time) / 60;
+        minute = (B + time) % 60;
+    }
 
-    printf("%d ", (A + share) < 24 ? (A + share) : (A + share) - 24);
-    printf("%d ", (A + remainder) < 60 ? (A + remainder) : (A + remainder) - 60);
+    if (hour >= 24)
+        hour -= 24;
+
+    printf("%d %d", hour, minute);
 
     return 0;
 }
