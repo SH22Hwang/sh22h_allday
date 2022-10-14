@@ -27,28 +27,46 @@ int isPalindrome(char *str, int length)
         // 만약 안 맞으면 그 글자 앞 뒤 빼보고 다시 검사하기
         int ex_left_flag = 1, ex_right_flag = 1;
 
-        for (int i = psd_left + 1; i < psd_right; i++)
+        // for (int i = psd_left + 1; i < psd_right; i++)
+        // {
+        //     if (str[i] != str[psd_right - i + 1])
+        //     {
+        //         ex_left_flag = 0;
+        //         break;
+        //     }
+        // }
+
+        // for (int i = psd_left; i < psd_right - 1; i++)
+        // {
+        //     if (str[i] != str[psd_right - i + 1])
+        //     {
+        //         ex_right_flag = 0;
+        //         break;
+        //     }
+        // }
+
+        int len2 = psd_right - psd_left;
+        for (int i = 0; i < len2 / 2; i++) // s+1
         {
-            if (str[i] != str[psd_right - i - 1])
+            if (str[psd_left + i + 1] != str[psd_right - i])
             {
                 ex_left_flag = 0;
                 break;
             }
         }
-
-        for (int i = psd_left; i < psd_right - 1; i++)
+        for (int i = 0; i < len2 / 2; i++) // e-1
         {
-            if (str[i] != str[psd_right - i - 1])
+            if (str[psd_left + i] != str[psd_right - 1 - i])
             {
                 ex_right_flag = 0;
                 break;
             }
         }
 
-        if (ex_left_flag == 0 && ex_right_flag == 0)
-            return 2;
-        else
+        if (ex_left_flag == 1 || ex_right_flag == 1)
             return 1;
+        else
+            return 2;
     }
 }
 
