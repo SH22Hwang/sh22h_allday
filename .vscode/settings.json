@@ -3,6 +3,7 @@
     "files.associations": {
         "string.h": "c",
         "cmath": "c",
-        "P2440.C": "cpp"
+        "P2440.C": "cpp",
+        "limits": "c"
     }
 }
