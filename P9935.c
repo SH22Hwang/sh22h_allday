@@ -4,7 +4,7 @@
 
 #define MAX_SIZE 1000005
 
-int stack[MAX_SIZE];
+char stack[MAX_SIZE];
 int idx_top = -1;
 
 int is_empty()
@@ -17,20 +17,15 @@ int is_full()
     return idx_top < MAX_SIZE - 1 ? 0 : 1;
 }
 
-void push(int x)
+void push(char x)
 {
     if (!is_full())
         stack[++idx_top] = x;
 }
 
-int pop()
+char pop()
 {
-    if (is_empty())
-        return -1;
-    else
-        return stack[idx_top--];
-
-    // return is_empty() ? -1 : stack[idx_top--];
+    return is_empty() ? -1 : stack[idx_top--];
 }
 
 int size()
@@ -38,41 +33,48 @@ int size()
     return idx_top + 1;
 }
 
-int top()
+char top()
+{
+    return is_empty() ? -1 : stack[idx_top];
+}
+
+void print_stack()
 {
     if (is_empty())
-        return -1;
+        printf("FRULA");
     else
-        return stack[idx_top];
-    // return is_empty() ? -1 : stack[idx_top--];
+    {
+        push('\0');
+        printf("%s", stack);
+    }
 }
 
 int main()
 {
-    char str[MAX_SIZE];
-    char c4[37];
-    scanf("%s", str); // 문자열을 stack처럼 사용
-    scanf("%s", c4);
+    char c4[37], str[MAX_SIZE];
+    scanf("%s %s", str, c4); // 문자열을 stack처럼 사용
 
-    int len_s = strlen(stack);
+    int len_s = strlen(str);
     int len_c = strlen(c4);
 
-    int c = 0;
     for (int i = 0; i < len_s; i++)
     {
-        if (str[i] == c4[c])
+        push(str[i]);
+
+        if (top() == c4[len_c - 1] && size() >= len_c) // 폭탄보다 길이가 길때만 검사
         {
-            push(str[i]);
-            for (c = 1; c < len_c; c++)
+            for (int j = len_c - 1; j >= 0; j--)
             {
-                if (str[++i] == str[c])
+                if (pop() != c4[j])
                 {
-                                }
+                    idx_top += len_c - j; // 폭탄 아니면 복원...?
+                    break;
+                }
             }
         }
-
-        printf("%c", str[i])
     }
-}
-return 0;
+
+    print_stack();
+
+    return 0;
 }
