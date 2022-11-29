@@ -30,17 +30,11 @@ int main()
 
     for (int i = 1; i <= num_node; i++)
     {
-        char p, r, l;
-        scanf(" %c %c %c", &p, &r, &l);
+        char p, l, r;
+        scanf(" %c %c %c", &p, &l, &r);
 
-        push(p, r, l);
+        push(p, l, r);
     }
-
-    // for (int i = 1; i <= size; i++)
-    // {
-    //     if (tree[i] >= 'A' && tree[i] <= 'Z')
-    //         printf("%c", tree[i]);
-    // }
 
     preorder('A');
     printf("\n");
@@ -51,21 +45,21 @@ int main()
     return 0;
 }
 
-void push(char parent, char right, char left)
+void push(char parent, char left, char right)
 {
     if (size == 0)
     {
         tree[1] = parent;
-        tree[2] = right;
-        tree[3] = left;
+        tree[2] = left;
+        tree[3] = right;
     }
     else
     {
         int pos = find_node(parent);
 
         tree[pos] = parent;
-        tree[pos * 2] = right;
-        tree[pos * 2 + 1] = left;
+        tree[pos * 2] = left;
+        tree[pos * 2 + 1] = right;
     }
 
     size += 3;
