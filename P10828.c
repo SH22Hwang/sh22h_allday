@@ -4,8 +4,6 @@
 
 #define MAX_SIZE 10000
 
-int N;
-
 int stack[MAX_SIZE];
 int idx_top = -1;
 
@@ -27,12 +25,7 @@ void push(int x)
 
 int pop()
 {
-    if (is_empty())
-        return -1;
-    else
-        return stack[idx_top--];
-
-    // return is_empty() ? -1 : stack[idx_top--];
+    return is_empty() ? -1 : stack[idx_top--];
 }
 
 int size()
@@ -42,15 +35,12 @@ int size()
 
 int top()
 {
-    if (is_empty())
-        return -1;
-    else
-        return stack[idx_top];
-    // return is_empty() ? -1 : stack[idx_top--];
+    return is_empty() ? -1 : stack[idx_top--];
 }
 
 int main()
 {
+    int N;
     scanf("%d", &N);
 
     while (N--)

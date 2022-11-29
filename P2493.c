@@ -2,11 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_SIZE 100000000
+#define MAX_SIZE 500005
 
-int N;
+typedef struct _tower
+{
+    int height;
+    int index;
+} tower;
 
-char stack[MAX_SIZE];
+tower tower_stack[MAX_SIZE];
 int idx_top = -1;
 
 int is_empty()
@@ -19,60 +23,60 @@ int is_full()
     return idx_top < MAX_SIZE - 1 ? 0 : 1;
 }
 
-void push(char x)
+void push(int x, int idx)
 {
     if (!is_full())
-        stack[++idx_top] = x;
+    {
+        ++idx_top;
+        tower_stack[idx_top].height = x;
+        tower_stack[idx_top].index = idx;
+    }
 }
 
-int pop()
+tower pop()
 {
-    // if (is_empty())
-    //     return 0;
-    // else
-    //     return stack[idx_top--];
-
-    return is_empty() ? 0 : stack[idx_top--];
+    // return is_empty() ? 0 : tower_stack[idx_top--];
+    return tower_stack[idx_top--];
 }
 
-void clear()
+tower top()
 {
-    stack[0] = '\0';
-    idx_top = -1;
-}
-
-int top()
-{
-    // if (is_empty())
-    //     return -1;
-    // else
-    //     return stack[idx_top];
-    return is_empty() ? -1 : stack[idx_top];
+    // return is_empty() ? 0 : tower_stack[idx_top];
+    return tower_stack[idx_top];
 }
 
 int main()
 {
+    int N, high = 0;
     scanf("%d", &N);
 
-    int tower[N];
-    int result[N] = {
-        0,
-    };
-
-    for (int i = 0; i < N, i++)
+    for (int i = 1; i <= N; i++)
     {
-        scanf(" %d", tower[i]);
-    }
+        int input;
+        scanf("%d", &input);
 
-    for (int i = 0; i < N; i++)
-    {
-        if (tower[i] > top())
+        if (input > high)
         {
-            result[i] = 0
+            high = input;
+            push(input, i);
+            printf("0 ");
         }
         else
         {
-            for (int j = i; j < N;)
+            while (1)
+            {
+                if (input > top().height)
+                {
+                    pop();
+                    continue;
+                }
+                else
+                {
+                    printf("%d ", top().index);
+                    push(input, i);
+                    break;
+                }
+            }
         }
     }
 
