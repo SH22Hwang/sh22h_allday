@@ -4,6 +4,9 @@
         "string.h": "c",
         "cmath": "c",
         "P2440.C": "cpp",
-        "limits": "c"
+        "limits": "c",
+        "stdio.h": "c",
+        "stdlib.h": "c",
+        "type_traits": "c"
     }
 }
