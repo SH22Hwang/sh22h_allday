@@ -17,7 +17,7 @@
  */
 
 #include <stdio.h>
-#define MAX_NUM 11
+#define MAX_NUM 100001
 
 int min_heap[MAX_NUM] = {
     -2147483646, // int 최대값
