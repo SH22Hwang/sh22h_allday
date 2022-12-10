@@ -1,6 +1,6 @@
 /**
  * @file P1826.c
- * @author 황승현
+ * @author ghkd3531
  * @date 2022-12-10
  *
  * 백준 1826번 연료채우기
@@ -34,7 +34,7 @@ int pop();
 
 int main()
 {
-    int num, L, P;
+    int num, L, P;        // 주유소, 거리, 연료
     int cur = 0, cnt = 0; // 현재 위치, 카운터
 
     scanf("%d", &num);
@@ -44,17 +44,17 @@ int main()
     scanf(" %d %d", &L, &P);
     merge_sort(arr, 0, num - 1);
 
-    while (L > P)
+    while (L > P) // P가 L보다 커지면(가지게 된 연료가 목표보다 많아지면) 종료.
     {
-        while (arr[cur].dist <= P)
+        while (arr[cur].dist <= P) // 현재 가지고 있는 연료로 도달할 수 있을 때
         {
-            if (cur == num)
+            if (cur == num) // 모든 주유소 방문
                 break;
 
-            push(arr[cur++].fuel);
+            push(arr[cur++].fuel); // 주유소의 연료 push
         }
 
-        if (size == 1)
+        if (size == 1) // 힙이 비었을 때 (주유소 없을 때, 모든 주유소 방문했을 때)
             break;
         cnt++;
         P += pop();
@@ -63,47 +63,6 @@ int main()
     printf("%d\n", L > P ? -1 : cnt);
 
     return 0;
-}
-
-void merge_sort(oilstation *arr, int left, int right)
-{
-    if (left < right)
-    {
-        int mid = (left + right) / 2;
-
-        merge_sort(arr, left, mid);
-        merge_sort(arr, mid + 1, right);
-        merge2arr(arr, left, mid, right);
-    }
-}
-
-void merge2arr(oilstation *arr, int left, int mid, int right)
-{
-    int fidx = left;
-    int ridx = mid + 1;
-    int sidx = left;
-
-    while (fidx <= mid && ridx <= right) // 거리 순 정렬
-    {
-        if (arr[fidx].dist < arr[ridx].dist)
-            sort[sidx++] = arr[fidx++];
-        else
-            sort[sidx++] = arr[ridx++];
-    }
-
-    if (ridx > right)
-    {
-        for (int i = fidx; i <= mid; i++)
-            sort[sidx++] = arr[i];
-    }
-    else
-    {
-        for (int i = ridx; i <= right; i++)
-            sort[sidx++] = arr[i];
-    }
-
-    for (int j = left; j <= right; j++)
-        arr[j] = sort[j];
 }
 
 void push(int fuel)
@@ -148,4 +107,45 @@ int pop()
         // 최대 힙 만족하게 정리 후 값 반환
         return res;
     }
+}
+
+void merge_sort(oilstation *arr, int left, int right)
+{
+    if (left < right)
+    {
+        int mid = (left + right) / 2;
+
+        merge_sort(arr, left, mid);
+        merge_sort(arr, mid + 1, right);
+        merge2arr(arr, left, mid, right);
+    }
+}
+
+void merge2arr(oilstation *arr, int left, int mid, int right)
+{
+    int fidx = left;
+    int ridx = mid + 1;
+    int sidx = left;
+
+    while (fidx <= mid && ridx <= right) // 거리 순 정렬
+    {
+        if (arr[fidx].dist < arr[ridx].dist)
+            sort[sidx++] = arr[fidx++];
+        else
+            sort[sidx++] = arr[ridx++];
+    }
+
+    if (ridx > right)
+    {
+        for (int i = fidx; i <= mid; i++)
+            sort[sidx++] = arr[i];
+    }
+    else
+    {
+        for (int i = ridx; i <= right; i++)
+            sort[sidx++] = arr[i];
+    }
+
+    for (int j = left; j <= right; j++)
+        arr[j] = sort[j];
 }
