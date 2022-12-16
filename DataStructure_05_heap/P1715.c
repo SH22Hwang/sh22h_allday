@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define MAX_NUM 11
+#define MAX_NUM 100001
 
 int heap[MAX_NUM], size = 1, target, next, temp_node;
 
@@ -48,7 +48,7 @@ void push(int data)
 }
 int main()
 {
-    int num_cases, input, result = 0;
+    int num_cases, input, temp = 0, result = 0;
     scanf("%d", &num_cases);
 
     while (num_cases--)
@@ -57,14 +57,13 @@ int main()
         push(input);
     }
 
-    while (size > 2)
+    while (size != 2)
     {
-        result += pop();
-        result += pop();
-        push(result);
-        // push(pop() + pop());
+        temp = pop() + pop();
+        push(temp);
+        result += temp;
     }
 
-    printf("%d", pop());
+    printf("%d", result);
     return 0;
 }
