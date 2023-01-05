@@ -1,86 +1,61 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-typedef struct _node
-{
-    int data;
-    struct _node *next;
-    struct _node *prev;
-} node;
+#define MAX_SIZE 15
 
-int N, M;
-node *head;
-node *tail;
-node *cur;
+char queue[MAX_SIZE];
+int idx_front = 0, idx_rear = 0;
 
-void init()
-{
-    head = (node *)malloc(sizeof(node));
-    tail = (node *)malloc(sizeof(node));
-
-    head->data = 'H';
-    tail->data = 'T';
-
-    head->next = tail;
-    head->prev = tail;
-
-    tail->next = head;
-    tail->prev = head;
-    cur = head;
-}
+int next_pos(int idx);
+int is_empty();
+void push(int x);
+int pop();
 
 int main()
 {
-    scanf("%d%d", &N, &M);
-    printf("<");
+    int N, K; // 사람 N명, 제거할 수 K
+    scanf("%d %d", &N, &K);
 
-    init();
-
-    // 1부터 N까지 순서대로 노드를 만드는 코드
     for (int i = 1; i <= N; i++)
     {
-        node *newnode = (node *)malloc(sizeof(node));
-        newnode->data = i;
-
-        cur->next = newnode;
-
-        newnode->prev = cur;
-        newnode->next = tail;
-
-        cur = newnode;
-        tail->prev = cur;
+        push(i);
     }
 
-    node *temp = tail->prev; // 맨 끝 노드부터 시작
-
-    // 계산을 위해 head, tail 삭제
-    head->next->prev = tail->prev;
-    tail->prev->next = head->next;
-
-    //	for(int j=0; j < N; j++){
-    int j = 0;
-    while (j < N)
+    printf("<");
+    while (!is_empty())
     {
-        int key = M;
-        while (key--)
-        { // 꼬리 3칸 이동
-            temp = temp->next;
-        }
-        printf(j++ ? ", %d" : "%d", temp->data);
-        //		printf(j == N-1 ? "%d " : "%d, ", temp->data);
+        for (int j = 0; j < K - 1; j++)
+            push(pop());
 
-        // 연결리스트에서 노드 삭제하는 법
-        temp->prev->next = temp->next;
-        temp->next->prev = temp->prev;
+        printf(is_empty() ? "%d" : "%d, ", pop());
     }
-
     printf(">");
-    /*
-for(;;){
-    printf("%d ",temp->data);
-    temp = temp->prev;
-}
-*/
 
     return 0;
+}
+
+int next_pos(int idx)
+{
+    return idx + 1 == MAX_SIZE ? 1 : idx + 1;
+}
+
+int is_empty()
+{
+    return next_pos(idx_rear) == next_pos(idx_front) ? 1 : 0;
+}
+
+void push(int x)
+{
+    idx_rear = next_pos(idx_rear);
+    queue[idx_rear] = x;
+}
+
+int pop()
+{
+    if (is_empty())
+        return 0;
+    else
+    {
+        idx_front = next_pos(idx_front);
+        return queue[idx_front];
+    }
 }
