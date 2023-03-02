@@ -32,13 +32,17 @@ void bfs(int v) // queue
 
 int main()
 {
-    int x, y;
-    scanf("%d", &vertex);
     scanf("%d", &edge);
+    vertex = 0;
+
     for (int i = 0; i < edge; i++)
     {
-        scanf("%d%d", &x, &y);
-        map[x][y] = map[y][x] = 1;
+        char temp[30];
+        scanf("%s", temp);
+        for (int j = 0; j < edge; j++)
+        {
+            temp[j]
+        }
     }
     bfs(1);
     printf("%d", result);
