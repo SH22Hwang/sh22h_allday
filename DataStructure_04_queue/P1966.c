@@ -93,7 +93,7 @@ int main()
             }
         }
 
-        // 큐 비우기
+        // 큐 비우기 <<< 문제의 코드
         while (!is_empty())
         {
             pop();
@@ -125,7 +125,7 @@ node pop()
 
 int next_pos(int idx)
 {
-    return idx == MAX_SIZE ? 1 : idx + 1;
+    return idx == MAX_SIZE - 1 ? 1 : idx + 1;
 }
 
 int is_empty()

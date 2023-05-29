@@ -11,5 +11,9 @@
         "*.tcc": "c",
         "stdbool.h": "c",
         "math.h": "c"
-    }
+    },
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.formatting.provider": "none"
 }
