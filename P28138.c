@@ -7,7 +7,7 @@
 
 int main()
 {
-    int nums[MAX_SIZE] = {0};
+    int nums[MAX_SIZE] = {0}; // 약수 찾기
     int n, r;
     scanf("%d %d", &n, &r);
 
